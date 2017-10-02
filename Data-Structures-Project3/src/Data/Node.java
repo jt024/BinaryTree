@@ -98,8 +98,7 @@ public class Node
     **********************************************************************/ 
     @Override
     public String toString(){
-        return "Word: " + this.word +"\n"
-                +"Appearance: "+ this.count;
+        return this.word +" frequency = "+this.count+"\n";
     }
     // </editor-fold> 
     

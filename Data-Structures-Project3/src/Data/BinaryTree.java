@@ -9,6 +9,7 @@ public class BinaryTree {
     
 // <editor-fold defaultstate="collapsed" desc="Private Field Variables">
     private Node root;
+    private StringBuilder sb = new StringBuilder();
 // </editor-fold>
     
 // <editor-fold defaultstate="collapsed" desc="Constructors">
@@ -80,13 +81,18 @@ public class BinaryTree {
                 
             }
         }
-        
-      
-        
-        
     }    
     
     
+    public void inOrder (Node root){ // Each child of a tree is a root of its subtree.
+    if (root.left != null){
+        inOrder (root.left);
+    }
+    System.out.println(root.getWord());
+    if (root.right != null){
+        inOrder (root.right);
+    }
+}
     
     
     
