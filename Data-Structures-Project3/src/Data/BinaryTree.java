@@ -8,7 +8,7 @@ package Data;
 public class BinaryTree {
     
 // <editor-fold defaultstate="collapsed" desc="Private Field Variables">
-    Node root;
+    private Node root;
 // </editor-fold>
     
 // <editor-fold defaultstate="collapsed" desc="Constructors">
@@ -19,10 +19,17 @@ public class BinaryTree {
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Accessors">    
-    
+    public Node getRoot(){
+        return this.root;
+    }
 // </editor-fold>    
 
 // <editor-fold defaultstate="collapsed" desc="Mutators">    
+    
+    public void setRoot(Node newRoot){
+        this.root = newRoot;
+    }
+    
     
 // </editor-fold>    
 
@@ -55,7 +62,11 @@ public class BinaryTree {
                         parent.setLeft(newNode);
                         return;
                     }
-                } else{
+                } else if(word.compareToIgnoreCase(focus.getWord())==0) {
+                    focus.incCount();
+                    return;
+                    
+                    } else{
                     focus = focus.getright();
                     
                     if (focus == null) {
