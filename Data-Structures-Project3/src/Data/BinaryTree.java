@@ -12,9 +12,9 @@ public class BinaryTree {
 // </editor-fold>
     
 // <editor-fold defaultstate="collapsed" desc="Constructors">
-    BinaryTree(String word){
+    public BinaryTree(String word){
         root = new Node(word);}
-    BinaryTree(){
+    public BinaryTree(){
         root = null;}
 // </editor-fold>
 

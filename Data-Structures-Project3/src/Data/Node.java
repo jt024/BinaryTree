@@ -101,10 +101,6 @@ public class Node
         return "Word: " + this.word +"\n"
                 +"Appearance: "+ this.count;
     }
-    
-    
-    
-
     // </editor-fold> 
     
     
