@@ -6,6 +6,15 @@
 package Presentation;
 
 import Data.BinaryTree;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -13,6 +22,12 @@ import Data.BinaryTree;
  */
 public class Main extends javax.swing.JFrame {
     private BinaryTree tree = new BinaryTree();
+    private JFileChooser chooser;
+    private String fileContent;
+    private BufferedReader br;
+    private final FileNameExtensionFilter FILTER = new FileNameExtensionFilter(
+        "Text Files", "txt", "text");
+    private StringBuilder sb;
     /**
      * Creates new form Main
      */
@@ -99,20 +114,52 @@ public class Main extends javax.swing.JFrame {
     private void bnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnCountActionPerformed
         
         
+        openFile();
+        
+        for (String word : fileContent.split("\\s+"))
+            {tree.addNode(word);}
         
         update();
-        
         
         
     }//GEN-LAST:event_bnCountActionPerformed
 
     private void update(){
         
-        taInput.setText(tree.getRoot().toString());
     }
     
-    
-    
+    public void openFile(){
+        chooser = new JFileChooser();
+        sb = new StringBuilder();
+        chooser.setFileFilter(FILTER);
+        
+        int returnVal = chooser.showOpenDialog(this);
+        
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            try{
+                FileReader reader = new FileReader(chooser.getSelectedFile());
+                br = new BufferedReader(reader);
+                String line = br.readLine();
+                
+                while (line != null) {
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                    line = br.readLine();
+                }
+                fileContent = sb.toString();
+                br.close();
+                
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "File not found"
+                    , "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "IO Error"
+                    , "Error", JOptionPane.ERROR_MESSAGE);
+            
+            }
+        }
+    }
+ 
     /**
      * @param args the command line arguments
      */
