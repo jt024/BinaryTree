@@ -9,7 +9,7 @@ package Data;
  ********************************************************************/
 public class Node
 {
-    private static int totalNodes;
+    private static int totalNodes=0;
     
     public String word;
     public int count;
@@ -23,11 +23,19 @@ public class Node
     **********************************************************************/    
     public Node(String word)
     {
+
         this.word = word;
-        this.count = 1;
         left = right = null;
+        this.count = 1;
+        totalNodes++;
     }
 
+    public void incCount(){
+        this.count++;
+    }
+    public void decCount(){
+        this.count--;
+    }
     
     /** Method ***********************************************************
     ** Name: getTotalNodes()                                             *
