@@ -18,4 +18,23 @@ public class BinaryTree {
         root = null;}
 // </editor-fold>
 
+// <editor-fold defaultstate="collapsed" desc="Accessors">    
+    
+// </editor-fold>    
+
+// <editor-fold defaultstate="collapsed" desc="Mutators">    
+    
+// </editor-fold>    
+
+
+
+
+    
+// <editor-fold defaultstate="collapsed" desc="Class Methods">    
+    
+    
+    
+// </editor-fold>    
+    
+    
 }
