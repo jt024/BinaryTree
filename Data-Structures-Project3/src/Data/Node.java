@@ -98,7 +98,7 @@ public class Node
     **********************************************************************/ 
     @Override
     public String toString(){
-        return this.word +" frequency = "+this.count+"\n";
+        return " "+this.word +" \t    "+this.count+" times\n";
     }
     // </editor-fold> 
     

@@ -33,10 +33,6 @@ public class BinaryTree {
     
     
 // </editor-fold>    
-
-
-
-
     
 // <editor-fold defaultstate="collapsed" desc="Class Methods">    
     
@@ -84,14 +80,25 @@ public class BinaryTree {
     }    
     
     
-    public void inOrder (Node root){ // Each child of a tree is a root of its subtree.
-    if (root.left != null){
-        inOrder (root.left);
+    /** Method ********************************************************
+    ** Name: inOrder()                                                *
+    ** Description: recursively steps through tree with the idea that *
+    ** each child of a tree is a root of its subtree.                 *
+    ** @author jt024                                                  *
+     * @param focus
+     * @return
+    ******************************************************************/     
+    public String inOrder (Node focus){ 
+    if (focus.left != null){
+        inOrder (focus.left);
     }
-    System.out.println(root.getWord());
-    if (root.right != null){
-        inOrder (root.right);
+    sb.append(focus.toString());
+    if (focus.right != null){
+        inOrder (focus.right);
     }
+    
+    return sb.toString();
+    
 }
     
     

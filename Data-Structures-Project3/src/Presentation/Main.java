@@ -10,8 +10,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,7 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author jt024
  */
 public class Main extends javax.swing.JFrame {
-    private BinaryTree tree = new BinaryTree();
+    private BinaryTree tree;
     private JFileChooser chooser;
     private String fileContent;
     private BufferedReader br;
@@ -56,6 +54,7 @@ public class Main extends javax.swing.JFrame {
 
         taInput.setColumns(20);
         taInput.setRows(5);
+        taInput.setWrapStyleWord(true);
         jScrollPane1.setViewportView(taInput);
 
         bnCount.setText("Count");
@@ -65,7 +64,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setAutoscrolls(true);
 
         taOutput.setColumns(20);
@@ -73,6 +71,11 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2.setViewportView(taOutput);
 
         bnClear.setText("Clear");
+        bnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,10 +90,9 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(bnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(365, 365, 365))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane2))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,21 +114,46 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnCountActionPerformed
+        tree = new BinaryTree();
         
+        if (taInput.getText().equalsIgnoreCase("")) {
+            openFile();
+            fileContent = removePunctuation(fileContent);
+            fileContent = fileContent.toLowerCase();
+            taInput.setText(fileContent);
+            for (String word : fileContent.split("\\s+"))
+                {tree.addNode(word);}
+            update();
+            return;
+        }
         
-        openFile();
-        
+        fileContent = taInput.getText();
+        fileContent = removePunctuation(fileContent);
+        fileContent = fileContent.toLowerCase();
         for (String word : fileContent.split("\\s+"))
             {tree.addNode(word);}
-        
         update();
-        
-        
     }//GEN-LAST:event_bnCountActionPerformed
 
-    private void update(){
+    private void bnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnClearActionPerformed
+        tree = new BinaryTree();
+        taOutput.setText("");
+        taInput.setText("");
         
+    }//GEN-LAST:event_bnClearActionPerformed
+
+    private void update(){
+        String temp = tree.inOrder(tree.getRoot());
+        taOutput.setText("");
+        taOutput.setText("WORD \t APPEARED\n");
+        taOutput.append(temp);
     }
+    
+    private String removePunctuation(String text){
+        return text.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
+    }
+    
+    
     
     public void openFile(){
         chooser = new JFileChooser();
