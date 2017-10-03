@@ -49,6 +49,9 @@ public class Node
     public int getCount(){
         return this.count++;
     }
+    public int getTotal(){
+        return totalNodes;
+    }
     
     /** Method ***********************************************************
     ** Name: getTotalNodes()                                             *

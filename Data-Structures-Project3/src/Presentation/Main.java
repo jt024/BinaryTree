@@ -169,6 +169,8 @@ public class Main extends javax.swing.JFrame {
         taOutput.setText("");
         taOutput.setText("WORD \t APPEARED\n");
         taOutput.append(temp);
+        taOutput.append("\n\n");
+        taOutput.append("Total unique words found: "+tree.getRoot().getTotalNodes());
     }
     
 //    private String removePunctuation(String text){
