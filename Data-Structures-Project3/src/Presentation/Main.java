@@ -53,6 +53,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         taInput.setColumns(20);
+        taInput.setLineWrap(true);
         taInput.setRows(5);
         taInput.setWrapStyleWord(true);
         jScrollPane1.setViewportView(taInput);
