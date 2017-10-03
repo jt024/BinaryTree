@@ -116,24 +116,45 @@ public class Main extends javax.swing.JFrame {
 
     private void bnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnCountActionPerformed
         tree = new BinaryTree();
+        chooser = new JFileChooser();
+        sb = new StringBuilder();
+        chooser.setFileFilter(FILTER);
         
-        if (taInput.getText().equalsIgnoreCase("")) {
-            openFile();
-            fileContent = removePunctuation(fileContent);
-            fileContent = fileContent.toLowerCase();
-            taInput.setText(fileContent);
-            for (String word : fileContent.split("\\s+"))
-                {tree.addNode(word);}
-            update();
+
+        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try{
+                FileReader reader = new FileReader(chooser.getSelectedFile());
+                br = new BufferedReader(reader);
+                String line = br.readLine();
+
+                while (line != null) {
+                    sb.append(line.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ").toLowerCase());
+                    sb.append(System.lineSeparator());
+                    line = br.readLine();
+                }
+                fileContent = sb.toString();
+                br.close();
+                
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "File not found"
+                    , "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "IO Error"
+                    , "Error", JOptionPane.ERROR_MESSAGE);
+            
+            }
+        } else{
             return;
-        }
-        
-        fileContent = taInput.getText();
-        fileContent = removePunctuation(fileContent);
-        fileContent = fileContent.toLowerCase();
+        }   
+            
+//        fileContent = removePunctuation(fileContent);
+//        fileContent = fileContent.toLowerCase();
+        taInput.setText(fileContent);
         for (String word : fileContent.split("\\s+"))
             {tree.addNode(word);}
-        update();
+        update();       
+        
+
     }//GEN-LAST:event_bnCountActionPerformed
 
     private void bnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnClearActionPerformed
@@ -150,43 +171,43 @@ public class Main extends javax.swing.JFrame {
         taOutput.append(temp);
     }
     
-    private String removePunctuation(String text){
-        return text.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
-    }
+//    private String removePunctuation(String text){
+//        return text.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
+//    }
     
     
     
-    public void openFile(){
-        chooser = new JFileChooser();
-        sb = new StringBuilder();
-        chooser.setFileFilter(FILTER);
-        
-        int returnVal = chooser.showOpenDialog(this);
-        
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            try{
-                FileReader reader = new FileReader(chooser.getSelectedFile());
-                br = new BufferedReader(reader);
-                String line = br.readLine();
-                
-                while (line != null) {
-                    sb.append(line);
-                    sb.append(System.lineSeparator());
-                    line = br.readLine();
-                }
-                fileContent = sb.toString();
-                br.close();
-                
-            } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "File not found"
-                    , "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "IO Error"
-                    , "Error", JOptionPane.ERROR_MESSAGE);
-            
-            }
-        }
-    }
+//    public void openFile(){
+////        chooser = new JFileChooser();
+////        sb = new StringBuilder();
+////        chooser.setFileFilter(FILTER);
+//        
+////        int returnVal = chooser.showOpenDialog(this);
+//        
+////        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+////            try{
+////                FileReader reader = new FileReader(chooser.getSelectedFile());
+////                br = new BufferedReader(reader);
+////                String line = br.readLine();
+////                
+////                while (line != null) {
+////                    sb.append(line);
+////                    sb.append(System.lineSeparator());
+////                    line = br.readLine();
+////                }
+////                fileContent = sb.toString();
+////                br.close();
+////                
+////            } catch (FileNotFoundException ex) {
+////                JOptionPane.showMessageDialog(null, "File not found"
+////                    , "Error", JOptionPane.ERROR_MESSAGE);
+////            } catch (IOException ex) {
+////                JOptionPane.showMessageDialog(null, "IO Error"
+////                    , "Error", JOptionPane.ERROR_MESSAGE);
+////            
+////            }
+////        }
+//    }
  
     /**
      * @param args the command line arguments
